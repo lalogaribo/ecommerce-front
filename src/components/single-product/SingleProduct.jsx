@@ -4,17 +4,17 @@ import { withRouter } from "react-router";
 import { ProductsContext } from "../../context/product-context";
 import "./single-product.scss";
 
-const SingleProduct = ({ match, history }) => {
+const SingleProduct = ({ match, history: { push } }) => {
   const { products } = useContext(ProductsContext);
   const { id } = match.params;
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
     const product = products.find((item) => Number(item.id) === Number(id));
-    if (!product) return history.push("/shop");
+    if (!product) return push("/shop");
 
     setProduct(product);
-  }, [id, product, history.push, products]);
+  }, [id, product, products, push]);
 
   if (!product) return null;
 
